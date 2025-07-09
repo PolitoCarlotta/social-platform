@@ -1,0 +1,30 @@
+UTENTI CHE HANNO POSTATO ALMENO UN VIDEO (25)
+
+SELECT DISTINCT `u`.*, `m`.`type`
+FROM `users` AS `u`
+JOIN `medias` AS `m`
+ON `u`.`id` = `m`.`user_id`
+WHERE `m`.`type` = 'video'
+
+
+TUTTI I POST SENZA LIKE (13)
+
+
+
+NUMERO LIKE PER OGNI POST(165/175)
+
+
+
+ORDINA UTENTI PER NUMERO MEDIA CARICATI(25)
+
+SELECT COUNT(`m`.`id`) AS `tot_media`, `u`.`id` AS `user`, `u`.`username`
+FROM `users` AS `u`
+JOIN `medias` AS `m`
+ON `u`.`id` = `m`.`user_id`
+GROUP BY `u`.`id`
+ORDER BY(`tot_media`) DESC
+
+
+
+
+ORDINA UTENTI PER TOTALE LIKES DI TUTTI I POST(25)
