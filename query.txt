@@ -7,11 +7,31 @@ ON `u`.`id` = `m`.`user_id`
 WHERE `m`.`type` = 'video'
 
 
+
 TUTTI I POST SENZA LIKE (13)
+
+SELECT *
+FROM `posts` AS`p`
+LEFT JOIN `likes` AS `l`
+ON `p`.`id` = `l`.`post_id`
+WHERE `l`.`post_id` IS NULL 
+
 
 
 
 NUMERO LIKE PER OGNI POST(165/175)
+
+SELECT `p`.`id`AS `post_id`, COUNT(`l`.`user_id`) AS `like`
+FROM `posts` AS `p`
+LEFT JOIN `likes` AS `l`
+ON `l`.`post_id` = `p`.`id`
+GROUP BY `p`.`id`
+
+
+SELECT COUNT(*) AS `n_like`, `post_id` 
+FROM `likes` AS `l`
+GROUP BY `post_id`
+
 
 
 
@@ -28,3 +48,14 @@ ORDER BY(`tot_media`) DESC
 
 
 ORDINA UTENTI PER TOTALE LIKES DI TUTTI I POST(25)
+
+SELECT `u`.`id` AS `user_id`, `u`.`username`, COUNT(`l`.`user_id`) AS `like`
+FROM `users` AS `u`
+JOIN `posts` AS `p`
+ON `u`.`id` = `p`.`user_id`
+JOIN `likes` AS `l`
+ON `p`.`id` = `l`.`post_id`
+GROUP BY `u`.`id`
+ORDER BY `like`
+
+
